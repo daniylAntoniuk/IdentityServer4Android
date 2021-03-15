@@ -1,0 +1,57 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.1"
+
+    defaultConfig {
+        applicationId "com.example.jobjoin"
+        minSdkVersion 23
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        manifestPlaceholders = [
+                'appAuthRedirectScheme': 'com.example.jobjoin'
+        ]
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    buildTypes.each {
+        it.buildConfigField 'String', 'CLIENT_ID', clientId
+        it.buildConfigField 'String', 'CLIENT_SECRET', clientSecret
+        it.buildConfigField 'String', 'REDIRECT_URI', redirectUri
+        it.buildConfigField 'String', 'SCOPE', scope
+        it.buildConfigField 'String', 'AUTHORIZSTION_END_POINT_URI', authorizationEndpointUri
+        it.buildConfigField 'String', 'TOKEN_END_POINT_URI', tokenEndpointUri
+        //it.buildConfigField 'String', 'REGISTRATION_END_POINT_URI', registrationEndpointUri
+        it.buildConfigField 'String', 'RESPONSE_TYPE', responseType
+
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    testImplementation 'junit:junit:4.+'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    implementation 'net.openid:appauth:0.7.0'
+    //implementation 'com.android.support:appcompat-v7:28.+'
+    //implementation 'com.android.support:design:28.+'
+    //implementation "com.android.support:customtabs:28"
+}
